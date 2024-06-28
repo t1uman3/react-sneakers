@@ -27,7 +27,7 @@ header {
     margin: 0;
   }
   .headerRight {
-    svg {
+    img {
       margin-right: 10px;
     }
   }
@@ -36,19 +36,6 @@ header {
 .content {
   h1 {
     margin: 0;
-  }
-}
-
-.button {
-  width: 32px;
-  height: 32px;
-  left: 794px;
-  top: 870px;
-  cursor: pointer;
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 1;
   }
 }
 
@@ -114,56 +101,54 @@ header {
   .Items {
     overflow: auto;
     margin-bottom: 20px;
-  }
-  h2 {
-    img {
-      opacity: 0.5;
-      cursor: pointer;
-      transition: opacity 0.15s ease-in-out;
-      &:hover {
-        opacity: 1;
-      }
-    }
-  }
-
-  .Items {
     flex: 1;
   }
+}
 
-  .cartTotalBlock {
-    .greenButton {
-      position: relative;
+h2 {
+  img {
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.15s ease-in-out;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
 
-      &:hover {
-        img {
-          transform: translateX(10px);
-        }
-      }
+.cartTotalBlock {
+  .greenButton {
+    position: relative;
 
+    &:hover {
       img {
-        position: absolute;
-        right: 8%;
-        top: 20px;
-        transition: transform 0.15s ease-in-out;
+        transform: translateX(10px);
       }
     }
-    ul {
-      display: block;
-      margin-bottom: 10px !important;
-      li {
-        display: flex;
-        align-items: flex-end;
-        margin-bottom: 20px;
-      }
 
-      div {
-        flex: 1;
-        height: 1px;
-        border-bottom: 1px dashed #dfdfdf;
-        position: relative;
-        top: 4px;
-        margin: 0 7px;
-      }
+    img {
+      position: absolute;
+      right: 8%;
+      top: 20px;
+      transition: transform 0.15s ease-in-out;
+    }
+  }
+  ul {
+    display: block;
+    margin-bottom: 10px !important;
+    li {
+      display: flex;
+      align-items: flex-end;
+      margin-bottom: 20px;
+    }
+
+    div {
+      flex: 1;
+      height: 1px;
+      border-bottom: 1px dashed #dfdfdf;
+      position: relative;
+      top: 4px;
+      margin: 0 7px;
     }
   }
 }

@@ -1,10 +1,11 @@
-function Drawer() {
+function Drawer({ onClose, items = [] }) {
   return (
-    <div style={{ display: "none" }} className="overlay">
+    <div className="overlay">
       <div className="drawer ">
         <h2 className="d-flex justify-between mb-20">
           Cart
           <img
+            onClick={onClose}
             className="removeBtn"
             width={20}
             height={20}
@@ -13,50 +14,29 @@ function Drawer() {
           ></img>
         </h2>
         <div className="Items">
-          <div className="cartItem d-flex align-center mb-20">
-            <img
-              className="mr-20"
-              width={80}
-              height={70}
-              src="/img/sneakers/1.jpg"
-              alt="sneakers"
-            ></img>
-            <div className="cartItemImg"></div>
-
-            <div className="mr-20">
-              <p className="m-5">Nike Blazer Mid Suede</p>
-              <strong>$499</strong>
+          {items.map((obj) => (
+            <div className="cartItem d-flex align-center mb-20">
+              <img
+                className="mr-20"
+                width={80}
+                height={70}
+                src={obj.imageUrl}
+                alt="sneakers"
+              ></img>
+              <div className="cartItemImg"></div>
+              <div className="mr-20">
+                <p className="m-5">{obj.title}</p>
+                <strong>${obj.price}</strong>
+              </div>
+              <img
+                className="removeBtn"
+                width={15}
+                height={15}
+                src="/cancel.svg"
+                alt="cancel"
+              ></img>
             </div>
-            <img
-              className="removeBtn"
-              width={15}
-              height={15}
-              src="/cancel.svg"
-              alt="cancel"
-            ></img>
-          </div>
-          <div className="cartItem d-flex align-center mb-20">
-            <img
-              className="mr-20"
-              width={80}
-              height={70}
-              src="/img/sneakers/2.jpg"
-              alt="sneakers"
-            ></img>
-            <div className="cartItemImg"></div>
-
-            <div className="mr-20">
-              <p className="m-5">Nike Blazer Mid Suede</p>
-              <strong>$499</strong>
-            </div>
-            <img
-              className="removeBtn"
-              width={15}
-              height={15}
-              src="/cancel.svg"
-              alt="cancel"
-            ></img>
-          </div>
+          ))}
         </div>
         <div className="cartTotalBlock">
           <ul>
