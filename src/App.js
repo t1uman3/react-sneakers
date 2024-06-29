@@ -1,63 +1,99 @@
 import React from "react";
+import axios from "axios";
 import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import { Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Favorites from "./pages/Favorites";
 
 function App() {
   const [Items, setItems] = React.useState([]);
+  const [favorites, setFavorites] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
-    fetch("https://667d9e1e297972455f65d0df.mockapi.io/items")
+    axios
+      .get("https://667d9e1e297972455f65d0df.mockapi.io/items")
       .then((res) => {
-        return res.json();
-      })
-      .then((json) => {
-        setItems(json);
+        setItems(res.data);
       });
+    axios
+      .get("https://667d9e1e297972455f65d0df.mockapi.io/cart")
+      .then((res) => {
+        setCartItems(res.data);
+      });
+    // axios
+    //   .get("https://667d9e1e297972455f65d0df.mockapi.io/favorites")
+    //   .then((res) => {
+    //     setFavorites(res.data);
+    //   });
   }, []);
 
+  // const onAddToFavorite = (obj) => {
+  //   axios.post("https://667d9e1e297972455f65d0df.mockapi.io/cart/", obj);
+  //   setCartItems((prev) => [...prev, obj]);
+  // };
+
   const onAddToCard = (obj) => {
+    axios.post("https://667d9e1e297972455f65d0df.mockapi.io/cart/", obj);
     setCartItems((prev) => [...prev, obj]);
+  };
+
+  const onRemoveItem = (id) => {
+    console.log(id);
+    axios.delete(`https://667d9e1e297972455f65d0df.mockapi.io/cart/${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id != id));
+  };
+
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value);
   };
 
   return (
     <div className="wrapper clear">
       {cartOpened ? (
         <Drawer
+          onRemove={onRemoveItem}
           items={cartItems}
           onClose={() => {
             setCartOpened(false);
           }}
         />
       ) : null}
+
       <Header
         onClickCart={() => {
           setCartOpened(true);
         }}
       />
-      <div className="content p-40 ">
-        <div className="d-flex align-center justify-between mb-30">
-          <h1>All sneakers</h1>
-          <div className="search-block d-flex">
-            <img src="/img/search.svg" alt="search"></img>
-            <input placeholder="Search..."></input>
-          </div>
-        </div>
-
-        <div className="d-flex flex-wrap">
-          {Items.map((item) => (
-            <Card
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onPlus={(obj) => onAddToCard(obj)}
-              onFavorite={() => console.log("press favorite")}
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={
+            <Home
+              Items={Items}
+              searchValue={searchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              setSearchValue={setSearchValue}
+              // onAddToFavorite={onAddToFavorite}
+              onAddToCard={onAddToCard}
             />
-          ))}
-        </div>
-      </div>
+          }
+        ></Route>
+        <Route
+          path="/favorites"
+          exact
+          element={
+            <Favorites
+            // items={Favorites}
+            />
+          }
+        ></Route>
+      </Routes>
     </div>
   );
 }
