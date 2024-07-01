@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Card from "./Card";
 
 function Header(props) {
   return (
@@ -15,9 +14,7 @@ function Header(props) {
       </Link>
       <ul className="headerRight d-flex">
         <li onClick={props.onClickCart} className="mr-30 cu-p">
-          <Link to="/cart">
-            <img src="/img/cart.svg" alt="cart"></img>
-          </Link>
+          <img src="/img/cart.svg" alt="cart"></img>
           <span>$1205</span>
         </li>
         <Link to="/favorites">
@@ -26,9 +23,7 @@ function Header(props) {
           </li>
         </Link>
         <li>
-          <Link to="/user">
-            <img className="cu-p" src="/img/profile.svg" alt="profile"></img>
-          </Link>
+          <img className="cu-p" src="/img/profile.svg" alt="profile"></img>
         </li>
       </ul>
     </header>

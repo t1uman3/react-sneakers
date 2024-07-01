@@ -18,7 +18,10 @@ function Drawer({ onClose, onRemove, items = [] }) {
           <div>
             <div className="Items">
               {items.map((obj) => (
-                <div className="cartItem d-flex justify-between align-center mb-20">
+                <div
+                  key={obj.id}
+                  className="cartItem d-flex justify-between align-center mb-20"
+                >
                   <img
                     className="mr-20"
                     width={80}
@@ -61,17 +64,16 @@ function Drawer({ onClose, onRemove, items = [] }) {
             </div>
           </div>
         ) : (
-          <div class="cartEmpty d-flex align-center justify-center flex-column flex">
+          <div className="cartEmpty d-flex align-center justify-center flex-column flex">
             <img
               width="120"
               height="120"
               src="/img/CartEmpty.svg"
               alt="empty"
-              class="mb-20"
+              className="mb-20"
             />
-            <h2></h2>
-            <p class="opacity-6">Add at least one pair of sneakers</p>
-            <button onClick={onClose} class="greenButton">
+            <p className="opacity-6">Add at least one pair of sneakers</p>
+            <button onClick={onClose} className="greenButton">
               <img src="./arrow.svg" alt="arrow" />
               Return back
             </button>

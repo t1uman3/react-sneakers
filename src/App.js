@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
-import Card from "./components/Card";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
 import { Route, Routes } from "react-router-dom";
+
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 
@@ -15,37 +15,51 @@ function App() {
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
-    axios
-      .get("https://667d9e1e297972455f65d0df.mockapi.io/items")
-      .then((res) => {
-        setItems(res.data);
-      });
-    axios
-      .get("https://667d9e1e297972455f65d0df.mockapi.io/cart")
-      .then((res) => {
-        setCartItems(res.data);
-      });
-    // axios
-    //   .get("https://667d9e1e297972455f65d0df.mockapi.io/favorites")
-    //   .then((res) => {
-    //     setFavorites(res.data);
-    //   });
+    async function fetchData() {
+      const cartResponse = axios.get("https://1ecf1771018c1f2a.mokky.dev/cart");
+      const favoritesResponse = axios.get(
+        "https://1ecf1771018c1f2a.mokky.dev/favorites"
+      );
+      const itemsResponse = axios.get(
+        "https://1ecf1771018c1f2a.mokky.dev/items"
+      );
+      setFavorites(favoritesResponse.data);
+      setCartItems(cartResponse.data);
+      setItems(itemsResponse.data);
+    }
+
+    fetchData();
   }, []);
 
-  // const onAddToFavorite = (obj) => {
-  //   axios.post("https://667d9e1e297972455f65d0df.mockapi.io/cart/", obj);
-  //   setCartItems((prev) => [...prev, obj]);
-  // };
-
   const onAddToCard = (obj) => {
-    axios.post("https://667d9e1e297972455f65d0df.mockapi.io/cart/", obj);
+    if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      axios.delete(`https://1ecf1771018c1f2a.mokky.dev/cart${obj.id}`);
+      setCartItems((prev) =>
+        prev.filter((item) => Number(item.id) !== Number(obj.id))
+      );
+    } else axios.post("https://1ecf1771018c1f2a.mokky.dev/cart", obj);
     setCartItems((prev) => [...prev, obj]);
   };
 
   const onRemoveItem = (id) => {
-    console.log(id);
-    axios.delete(`https://667d9e1e297972455f65d0df.mockapi.io/cart/${id}`);
-    setCartItems((prev) => prev.filter((item) => item.id != id));
+    axios.delete(`https://1ecf1771018c1f2a.mokky.dev/cart${id}`);
+    setCartItems((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const onAddToFavorite = async (obj) => {
+    try {
+      if (favorites.find((favObj) => favObj.id === obj.id)) {
+        axios.delete(`https://1ecf1771018c1f2a.mokky.dev/favorites/${obj.id}`);
+      } else {
+        const { data } = await axios.post(
+          "https://1ecf1771018c1f2a.mokky.dev/favorites/",
+          obj
+        );
+        setFavorites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert("Failed to add to favorites");
+    }
   };
 
   const onChangeSearchInput = (event) => {
@@ -75,11 +89,12 @@ function App() {
           exact
           element={
             <Home
-              Items={Items}
+              items={Items}
+              cartItems={cartItems}
               searchValue={searchValue}
               onChangeSearchInput={onChangeSearchInput}
               setSearchValue={setSearchValue}
-              // onAddToFavorite={onAddToFavorite}
+              onAddToFavorite={onAddToFavorite}
               onAddToCard={onAddToCard}
             />
           }
@@ -87,11 +102,7 @@ function App() {
         <Route
           path="/favorites"
           exact
-          element={
-            <Favorites
-            // items={Favorites}
-            />
-          }
+          element={<Favorites items={favorites} addFavorite={true} />}
         ></Route>
       </Routes>
     </div>
