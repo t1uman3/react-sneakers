@@ -18,6 +18,10 @@
     height: 9px;
     position: absolute;
     cursor: pointer;
+    opacity: 55%;
+    &:hover {
+      opacity: 20%;
+    }
   }
 
   span {

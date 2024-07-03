@@ -3,28 +3,26 @@ import React from "react";
 
 function Home({
   items = [],
-  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
   onAddToFavorite,
-  onAddToCard,
+  onAddToCart,
+  isLoading,
 }) {
   const renderItems = () => {
-    return items
-      .filter((item) =>
-        item.title.toLowerCase().includes(searchValue.toLowerCase())
-      )
-      .map((item, index) => (
-        <Card
-          key={index}
-          onPlus={(obj) => onAddToCard(obj)}
-          onFavorite={(obj) => onAddToFavorite(obj)}
-          added={cartItems.some((obj) => obj.id === item.obj)}
-          loading={true}
-          {...item}
-        />
-      ));
+    const filtredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    return (isLoading ? [...Array(8)] : filtredItems).map((item, index) => (
+      <Card
+        key={index}
+        onPlus={(obj) => onAddToCart(obj)}
+        onFavorite={(obj) => onAddToFavorite(obj)}
+        loading={isLoading}
+        {...item}
+      />
+    ));
   };
 
   return (
