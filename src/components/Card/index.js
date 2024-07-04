@@ -5,7 +5,6 @@ import { AppContext } from "../../App";
 
 function Card({
   id,
-  parentId,
   onFavorite,
   title,
   imageUrl,

@@ -46,13 +46,34 @@ function App() {
 
   const onAddToCart = async (obj) => {
     try {
-      if (cartItems.find((item) => Number(item.parentId) === Number(obj.id))) {
+      const findItem = cartItems.find(
+        (item) => Number(item.parentId) === Number(obj.id)
+      );
+      if (findItem) {
         setCartItems((prev) =>
-          prev.filter((item) => Number(item.id) !== Number(obj.id))
+          prev.filter((item) => Number(item.parentId) !== Number(obj.id))
         );
-        await axios.delete(`https://1ecf1771018c1f2a.mokky.dev/cart/${obj.id}`);
-      } else setCartItems((prev) => [...prev, obj]);
-      await axios.post("https://1ecf1771018c1f2a.mokky.dev/cart", obj);
+        await axios.delete(
+          `https://1ecf1771018c1f2a.mokky.dev/cart/${findItem.id}`
+        );
+      } else {
+        setCartItems((prev) => [...prev, obj]);
+        const { data } = await axios.post(
+          "https://1ecf1771018c1f2a.mokky.dev/cart",
+          obj
+        );
+        setCartItems((prev) =>
+          prev.map((item) => {
+            if (item.parentId === data.parentId) {
+              return {
+                ...item,
+                id: data.id,
+              };
+            }
+            return item;
+          })
+        );
+      }
     } catch (error) {
       alert(`Failed add to cart ;(`);
       console.log(error);
@@ -63,7 +84,7 @@ function App() {
     try {
       axios.delete(`https://1ecf1771018c1f2a.mokky.dev/cart/${id}`);
       setCartItems((prev) =>
-        prev.filter((item) => Number(item.id) !== Number(id))
+        prev.filter((item) => Number(item.parentId) !== Number(id))
       );
     } catch (error) {
       alert("Failed to remove item from cart");
