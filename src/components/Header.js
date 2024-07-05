@@ -7,7 +7,7 @@ function Header(props) {
 
   return (
     <header className="d-flex justify-between align-center p-20">
-      <Link to="react-sneakers/">
+      <Link to="react-sneakers">
         <div className="d-flex align-center ">
           <img width={60} height={60} src="img/shoes.png" alt="logo" />
           <div>
@@ -21,12 +21,12 @@ function Header(props) {
           <img src="img/cart.svg" alt="cart"></img>
           <span>${totalPrice}</span>
         </li>
-        <Link to="react-sneakers/favorites/">
+        <Link to="react-sneakers/favorites">
           <li onClick={props.onClickFavorite} className="mr-20 cu-p">
             <img src="img/favorite.svg" alt="favorite"></img>
           </li>
         </Link>
-        <Link to="react-sneakers/orders/">
+        <Link to="react-sneakers/orders">
           <li>
             <img className="cu-p" src="img/profile.svg" alt="profile"></img>
           </li>
