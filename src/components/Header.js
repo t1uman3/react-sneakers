@@ -7,7 +7,7 @@ function Header(props) {
 
   return (
     <header className="d-flex justify-between align-center p-20">
-      <Link to="react-sneakers">
+      <Link to="react-sneakers/">
         <div className="d-flex align-center ">
           <img width={60} height={60} src="img/shoes.png" alt="logo" />
           <div>
