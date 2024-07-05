@@ -166,12 +166,12 @@ function App() {
             }
           ></Route>
           <Route
-            path="react-sneakers/favorites/"
+            path="react-sneakers/favorites"
             exact
             element={<Favorites />}
           ></Route>
           <Route
-            path="react-sneakers/orders/"
+            path="react-sneakers/orders"
             exact
             element={<Orders />}
           ></Route>
