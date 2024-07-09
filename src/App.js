@@ -18,12 +18,11 @@ function App() {
   const [cartItems, setCartItems] = React.useState([]);
   const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        setIsLoading(true);
         const [cartResponse, favoritesResponse, itemsResponse] =
           await Promise.all([
             axios.get("https://1ecf1771018c1f2a.mokky.dev/cart"),
@@ -32,8 +31,8 @@ function App() {
           ]);
 
         setIsLoading(false);
-        setFavorites(favoritesResponse.data);
         setCartItems(cartResponse.data);
+        setFavorites(favoritesResponse.data);
         setItems(itemsResponse.data);
       } catch (error) {
         alert(`Error data loading ;(`);
@@ -84,7 +83,7 @@ function App() {
     try {
       axios.delete(`https://1ecf1771018c1f2a.mokky.dev/cart/${id}`);
       setCartItems((prev) =>
-        prev.filter((item) => Number(item.parentId) !== Number(id))
+        prev.filter((item) => Number(item.id) !== Number(id))
       );
     } catch (error) {
       alert("Failed to remove item from cart");
@@ -150,7 +149,7 @@ function App() {
         />
         <Routes>
           <Route
-            path="react-sneakers/"
+            path="/"
             exact
             element={
               <Home
@@ -165,16 +164,8 @@ function App() {
               />
             }
           ></Route>
-          <Route
-            path="react-sneakers/favorites"
-            exact
-            element={<Favorites />}
-          ></Route>
-          <Route
-            path="react-sneakers/orders"
-            exact
-            element={<Orders />}
-          ></Route>
+          <Route path="/favorites" exact element={<Favorites />}></Route>
+          <Route path="/orders" exact element={<Orders />}></Route>
         </Routes>
       </div>
     </AppContext.Provider>
