@@ -21,12 +21,12 @@ function Header(props) {
           <img src="img/cart.svg" alt="cart"></img>
           <span>${totalPrice}</span>
         </li>
-        <Link to="/favorites">
+        <Link to="react-sneakers/favorites">
           <li onClick={props.onClickFavorite} className="mr-20 cu-p">
             <img src="img/favorite.svg" alt="favorite"></img>
           </li>
         </Link>
-        <Link to="/orders">
+        <Link to="react-sneakers/orders">
           <li>
             <img className="cu-p" src="img/profile.svg" alt="profile"></img>
           </li>
