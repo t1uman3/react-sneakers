@@ -42,7 +42,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
             className="removeBtn"
             width={20}
             height={20}
-            src="react-sneakers/img/cancel.svg"
+            src="img/cancel.svg"
             alt="cancel"
           ></img>
         </h2>
@@ -72,7 +72,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                     className="removeBtn d-flex justify-between mr-0"
                     width={15}
                     height={15}
-                    src="react-sneakers/img/cancel.svg"
+                    src="img/cancel.svg"
                     alt="cancel"
                   ></img>
                 </div>
@@ -97,7 +97,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                 className="greenButton"
               >
                 Check Out
-                <img src="react-sneakers/img/arrow.svg" alt="arrow"></img>
+                <img src="img/arrow.svg" alt="arrow"></img>
               </button>
             </div>
           </div>
@@ -109,11 +109,7 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
                 ? `Your order ${orderId} will be transferred to courier delivery soon`
                 : "Add at least one pair of sneakers"
             }
-            image={
-              isOrderComplete
-                ? "react-sneakers/img/order.svg"
-                : "react-sneakers/img/CartEmpty.svg"
-            }
+            image={isOrderComplete ? "img/order.svg" : "img/CartEmpty.svg"}
           ></Info>
         )}
       </div>
