@@ -15,25 +15,19 @@ function Drawer({ onClose, onRemove, items = [], opened }) {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const onClickOrder = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await axios.post(
-        "https://1ecf1771018c1f2a.mokky.dev/orders/",
-        { items: cartItems }
-      );
-      setOrderId(data.id);
-      setIsOrderComplete(true);
-      setCartItems([]);
+    setIsLoading(true);
+    const { data } = await axios.post(
+      "https://1ecf1771018c1f2a.mokky.dev/orders/",
+      { items: cartItems }
+    );
+    setOrderId(data.id);
+    setIsOrderComplete(true);
+    setCartItems([]);
 
-      for (let i = 0; i < cartItems.length; i++) {
-        const item = cartItems[i];
-        await axios.delete(
-          "https://1ecf1771018c1f2a.mokky.dev/cart/" + item.id
-        );
-        await delay(1000);
-      }
-    } catch (error) {
-      alert("failed while create order :(");
+    for (let i = 0; i < cartItems.length; i++) {
+      const item = cartItems[i];
+      await axios.delete("https://1ecf1771018c1f2a.mokky.dev/cart/" + item.id);
+      await delay(1000);
     }
     setIsLoading(false);
   };
