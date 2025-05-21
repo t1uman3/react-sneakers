@@ -2,7 +2,7 @@
 
 <div align="center" style="background-color: #000; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
   <div style="display: flex; align-items: center; justify-content: center; gap: 15px;">
-    <img width="60" height="60" src="img/shoes.png" alt="React Sneakers Logo" />
+    <img width="60" height="60" src="public/img/shoes.png" alt="React Sneakers Logo" />
     <div style="text-align: left; color: white;">
       <h3 style="margin: 0; text-transform: uppercase;">React sneakers</h3>
       <p style="margin: 5px 0 0 0; opacity: 0.5;">Best sneakers store</p>
